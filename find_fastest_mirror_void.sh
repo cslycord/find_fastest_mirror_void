@@ -26,7 +26,7 @@ smaller() {
 
 for repo in ${repos}; do
 	host=$(echo $repo | sed -e 's|^http://*||g' -e 's:/.*::')
-	ping=$(sudo ping -c 4 -w 400 $host 2>/dev/null | tail -1 | awk '{print $4}' \
+	ping=$(ping -c 4 -w 400 $host 2>/dev/null | tail -1 | awk '{print $4}' \
 	| cut -d '/' -f 2)
 	if [ "$ping" != "" ] && [ "$ping" != "0" ]; then
 		if [ "$min_ping" = "" ] || smaller $ping $min_ping ; then
