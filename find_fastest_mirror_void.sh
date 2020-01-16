@@ -31,7 +31,7 @@ commands_exist() {
 	fi
 }
 
-needed_cmds="awk sed ping tail cut"
+needed_cmds="awk sed ping tail cut sudo"
 
 if ! commands_exist ${needed_cmds} ; then
 	echo "Your system is missing needed packages"
@@ -54,7 +54,7 @@ fi
 
 for repo in ${repos}; do
 	host=$(echo $repo | sed -e 's|^http://*||g' -e 's:/.*::')
-	pingt=$(ping -c 4 -w 2 $host 2>/dev/null | tail -1 | awk '{print $4}' \
+	pingt=$(sudo ping -c 4 -w 2 $host 2>/dev/null | tail -1 | awk '{print $4}' \
 	| cut -d '/' -f 2)
 
 	if [ "$pingt" != "" ]; then
